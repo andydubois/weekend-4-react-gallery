@@ -50,10 +50,10 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   const newPhoto = req.body;
   //add new image to SQL database string
-  const queryText = `INSERT INTO photos (path, description) VALUES ($1, $2)`;
+  const queryText = `INSERT INTO photos (path, description, title, likes) VALUES ($1, $2, $3, $4)`;
   //communicate with database
   pool
-    .query(queryText, [newPhoto.path, "photo submitted by user! :)"])
+    .query(queryText, [newPhoto.path, "Photo submitted by user! :)", '', 0])
     .then(result => {
       //log of photo url sent to database on successful POST
       console.log("Added new photo to database", newPhoto);

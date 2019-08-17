@@ -39,8 +39,14 @@ class App extends Component {
 
 //POST function
 addNewPhoto = () => {
-  Axios.post('/gallery', this.state.newImage)
-  .then(response)
+  Axios.post('/gallery', this.state.newPicture)
+  .then(response => {
+    console.log(this.state.newPicture)
+    console.log(response);
+    this.getPictures();
+  }).catch (error => {
+    console.log('There was an error on the client side POST', error);
+  }) 
 }
 
 
@@ -90,6 +96,7 @@ handleChangeFor = (propertyName) => (event) => {
                 onChange={this.handleChangeFor('path')}
               />
             </label>
+            <button onClick={this.addNewPhoto}>Add New Image!</button>
           </form>
         </div>
         <div className='galleryListContainer'>
