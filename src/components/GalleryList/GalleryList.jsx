@@ -4,13 +4,16 @@ import React, {Component} from 'react';
 class GalleryList extends Component {
     render() {
 
-        let listOfPictures = this.props.listOfPictures.map(picture => {
-            return <img src="{picture.path}"></img>
+        let pictureGallery = this.props.listOfPictures.map(picture => {
+            return <img src={picture.path} alt='' className='pictureBox'></img>
         })
 
         return(
-            {listOfPictures}
+         <>   
+         {pictureGallery}
+         </>
         )
+
     }
 }
 
