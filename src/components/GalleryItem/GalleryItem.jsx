@@ -15,19 +15,29 @@ class GalleryItem extends Component {
   flipPicture = () => {
     if (this.state.pictureShowing === true) {
       return (
-        <div className='pictureDiv'>
-          <img
-            onClick={this.clickPicture}
-            src={this.props.picture.path}
-            alt=''
-            className='pictureBox'
-          />
+        <div className='displayedContent'>
+          <div className='pictureDiv' key={this.props.picture.id}>
+            <img
+              onClick={this.clickPicture}
+              src={this.props.picture.path}
+              alt=''
+              className='pictureBox'
+              key={this.props.picture.id}
+            />
+            <button
+              className='voteButton'
+              onClick={() => this.props.upVotePicture(this.props.picture.id)}>
+              Liked {this.props.picture.likes} Times
+            </button>
+          </div>
         </div>
       );
     } else {
       return (
-        <div className='descriptionDiv' onClick={this.clickPicture}>
-          <p className='textBox'>{this.props.picture.description}</p>
+        <div className='displayedContent'>
+          <div className='descriptionDiv' onClick={this.clickPicture}>
+            <p className='textBox'>{this.props.picture.description}</p>
+          </div>
         </div>
       );
     }
