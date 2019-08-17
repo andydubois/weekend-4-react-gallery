@@ -18,17 +18,29 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.pictureBox {
+.pictureDiv,
+.descriptionDiv {
   display: inline-block;
   border: 1px solid gray;
-  width: 250px;
-  height: 250px;
-  margin: 6px;
-  padding: 10px;
+  width: 200px;
+  height: 200px;
+  margin: 5px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.pictureBox, .textBox{
+  display: inline-block;
+  width: 200px;
+  height: 200px;
   border-radius: 10px;
   object-fit: contain;
 }
