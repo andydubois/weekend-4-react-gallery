@@ -3,14 +3,15 @@ import React, { Component } from "react";
 import "./App.css";
 import Axios from "axios";
 import GalleryList from "../GalleryList/GalleryList";
+import AddPhotoForm from "../AddPhotoForm/AddPhotoForm";
 
 class App extends Component {
   state = {
     listOfPictures: [],
     newPicture: {
-      path: '',
-      description: '',
-      title: '',
+      path: "",
+      description: "",
+      title: ""
     }
   };
 
@@ -36,21 +37,31 @@ class App extends Component {
   }
   //end of GET function
 
+  //POST function
+  addNewPhoto = () => {
+    Axios.post("/gallery", this.state.newPicture)
+      .then(response => {
+        console.log(this.state.newPicture);
+        console.log(response);
+        this.getPictures();
+      })
+      .catch(error => {
+        console.log("There was an error on the client side POST", error);
+      });
+  };
 
-//POST function
-addNewPhoto = () => {
-  Axios.post('/gallery', this.state.newPicture)
-  .then(response => {
-    console.log(this.state.newPicture)
-    console.log(response);
-    this.getPictures();
-  }).catch (error => {
-    console.log('There was an error on the client side POST', error);
-  }) 
-}
+  //end of POST function
 
-
-
+  deletePhoto = id => {
+    Axios.delete(`/gallery/delete/${id}`)
+      .then(response => {
+        console.log(response);
+        this.getPictures();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   //PUT function
   upVotePicture = id => {
@@ -66,18 +77,15 @@ addNewPhoto = () => {
   };
   //end of PUT function
 
-
-//One function to handle them all
-handleChangeFor = (propertyName) => (event) => {
-  this.setState({
-    newPicture: {
-      ...this.state.newPicture,
-    [propertyName]: event.target.value,
-  }
-  
-  })
-}
-
+  //One function to handle them all
+  handleChangeFor = propertyName => event => {
+    this.setState({
+      newPicture: {
+        ...this.state.newPicture,
+        [propertyName]: event.target.value
+      }
+    });
+  };
 
   //render DOM
   render() {
@@ -87,17 +95,11 @@ handleChangeFor = (propertyName) => (event) => {
           <h1 className='App-title'>Gallery of my life</h1>
         </header>
         <div>
-          <form>
-            <label>
-              <input
-                type='text'
-                placeholder='url'
-                value={this.state.newPicture.path}
-                onChange={this.handleChangeFor('path')}
-              />
-            </label>
-            <button onClick={this.addNewPhoto}>Add New Image!</button>
-          </form>
+          <AddPhotoForm
+            newPicture={this.state.newPicture}
+            handleChangeFor={this.handleChangeFor}
+            addNewPhoto={this.addNewPhoto}
+          />
         </div>
         <div className='galleryListContainer'>
           {/* calls GalleryList to render on DOM*/}
