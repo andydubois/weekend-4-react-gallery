@@ -6,7 +6,12 @@ import GalleryList from "../GalleryList/GalleryList";
 
 class App extends Component {
   state = {
-    listOfPictures: []
+    listOfPictures: [],
+    newPicture: {
+      path: '',
+      description: '',
+      title: '',
+    }
   };
 
   //checking if document is loaded
@@ -15,7 +20,7 @@ class App extends Component {
     console.log("app mounted successfully");
   }
 
-  //GET function 
+  //GET function
   getPictures() {
     Axios.get("/gallery")
       .then(response => {
@@ -29,7 +34,21 @@ class App extends Component {
         console.log(error);
       });
   }
-//end of GET function
+  //end of GET function
+
+
+//POST function
+addNewPhoto = () => {
+  Axios.post('/gallery', this.state.newPicture)
+  .then(response => {
+    console.log(this.state.newPicture)
+    console.log(response);
+    this.getPictures();
+  }).catch (error => {
+    console.log('There was an error on the client side POST', error);
+  }) 
+}
+
 
 
 
@@ -48,6 +67,18 @@ class App extends Component {
   //end of PUT function
 
 
+//One function to handle them all
+handleChangeFor = (propertyName) => (event) => {
+  this.setState({
+    newPicture: {
+      ...this.state.newPicture,
+    [propertyName]: event.target.value,
+  }
+  
+  })
+}
+
+
   //render DOM
   render() {
     return (
@@ -55,8 +86,21 @@ class App extends Component {
         <header className='App-header'>
           <h1 className='App-title'>Gallery of my life</h1>
         </header>
-        <div className="galleryListContainer">
-        {/* calls GalleryList to render on DOM*/}
+        <div>
+          <form>
+            <label>
+              <input
+                type='text'
+                placeholder='url'
+                value={this.state.newPicture.path}
+                onChange={this.handleChangeFor('path')}
+              />
+            </label>
+            <button onClick={this.addNewPhoto}>Add New Image!</button>
+          </form>
+        </div>
+        <div className='galleryListContainer'>
+          {/* calls GalleryList to render on DOM*/}
           <GalleryList
             listOfPictures={this.state.listOfPictures}
             upVotePicture={this.upVotePicture}

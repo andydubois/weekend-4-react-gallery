@@ -45,4 +45,29 @@ router.get("/", (req, res) => {
   // res.send(galleryItems);
 }); // END GET Route
 
+// POST route
+
+router.post("/", (req, res) => {
+  const newPhoto = req.body;
+  //add new image to SQL database string
+  const queryText = `INSERT INTO photos (path, description, title, likes) VALUES ($1, $2, $3, $4)`;
+  //communicate with database
+  pool
+    .query(queryText, [newPhoto.path, "Photo submitted by user! :)", '', 0])
+    .then(result => {
+      //log of photo url sent to database on successful POST
+      console.log("Added new photo to database", newPhoto);
+      //THUMBS UP
+      res.sendStatus(201);
+    })
+    .catch(error => {
+      //error message log along with SQL query string sent
+      console.log(`Error making query to database ${queryText}`, error);
+      //error message
+      res.sendStatus(500);
+    });
+});
+
+// end POST route
+
 module.exports = router;
