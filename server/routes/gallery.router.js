@@ -16,7 +16,6 @@ router.put("/like/:id", (req, res) => {
       queryText = `UPDATE photos SET likes=likes+1  WHERE id=$1`;
     }
   }
-
   pool
     .query(queryText, [galleryId])
     .then(result => {
@@ -29,6 +28,24 @@ router.put("/like/:id", (req, res) => {
     });
 });
 // END PUT Route
+
+// DELETE Route
+router.delete("/delete/:id", (req, res) => {
+    let deleteId = req.params.id;
+    console.log('Delete request for id', deleteId);
+    let queryText = `DELETE FROM photos WHERE id=$1;`;
+    pool.query(queryText, [deleteId])
+    .then(result => {
+        console.log('Song deleted');
+        res.sendStatus(200);
+    })
+    .catch(error => {
+        console.log(`Error deleting song from database query: {queryText}`, error);
+        res.sendStatus(500);
+    })
+})
+
+
 
 // GET Route
 router.get("/", (req, res) => {

@@ -95,6 +95,7 @@ class App extends Component {
           <h1 className='App-title'>Gallery of my life</h1>
         </header>
         <div>
+          {/* calls AddPhotoForm to render on DOM */}
           <AddPhotoForm
             newPicture={this.state.newPicture}
             handleChangeFor={this.handleChangeFor}
@@ -106,6 +107,7 @@ class App extends Component {
           <GalleryList
             listOfPictures={this.state.listOfPictures}
             upVotePicture={this.upVotePicture}
+            deletePhoto={this.deletePhoto}
           />
         </div>
       </div>

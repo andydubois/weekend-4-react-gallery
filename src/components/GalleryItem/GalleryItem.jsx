@@ -29,6 +29,11 @@ class GalleryItem extends Component {
               onClick={() => this.props.upVotePicture(this.props.picture.id)}>
               Liked {this.props.picture.likes} Times
             </button>
+            <button 
+            className='deleteButton' 
+            onClick={() => this.props.deletePhoto(this.props.id)}>
+              DELETE THIS ONE
+            </button>
           </div>
         </div>
       );
