@@ -39,7 +39,10 @@ class App extends Component {
 
   //POST function
   addNewPhoto = () => {
-    Axios.post("/gallery", this.state.newPicture)
+    if (this.state.newPicture.path === "") {
+      alert("The Url fields needs to be filled");
+    } else {
+          Axios.post("/gallery", this.state.newPicture)
       .then(response => {
         console.log(this.state.newPicture);
         console.log(response);
@@ -48,6 +51,8 @@ class App extends Component {
       .catch(error => {
         console.log("There was an error on the client side POST", error);
       });
+    }
+
   };
 
   //end of POST function
@@ -65,15 +70,15 @@ class App extends Component {
 
   //PUT function
   upVotePicture = id => {
-    Axios.put(`/gallery/like/${id}`)
-      .then(response => {
-        console.log(response);
-        //refreshes gallery after every like
-        this.getPictures();
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      Axios.put(`/gallery/like/${id}`)
+        .then(response => {
+          console.log(response);
+          //refreshes gallery after every like
+          this.getPictures();
+        })
+        .catch(error => {
+          console.log(error);
+        });
   };
   //end of PUT function
 

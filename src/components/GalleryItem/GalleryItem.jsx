@@ -33,7 +33,7 @@ class GalleryItem extends Component {
             <button 
             className='deleteButton' 
             onClick={() => this.props.deletePhoto(this.props.picture.id)}>
-              DELETE THIS ONE
+              DELETE
             </button>
           </div>
         </div>
