@@ -13,6 +13,7 @@ class GalleryItem extends Component {
   };
 
   flipPicture = () => {
+    //sets up conditional rendering of picture or description
     if (this.state.pictureShowing === true) {
       return (
         <div className='displayedContent'>
@@ -31,7 +32,7 @@ class GalleryItem extends Component {
             </button>
             <button 
             className='deleteButton' 
-            onClick={() => this.props.deletePhoto(this.props.id)}>
+            onClick={() => this.props.deletePhoto(this.props.picture.id)}>
               DELETE THIS ONE
             </button>
           </div>
