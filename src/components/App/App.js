@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import "./bootstrap.css";
+import "./bootstrap.css";
 import "./App.css";
 import Axios from "axios";
 import GalleryList from "../GalleryList/GalleryList";
@@ -92,7 +92,7 @@ class App extends Component {
     return (
       <div className='App'>
         <header className='App-header'>
-          <h1 className='App-title'>Gallery of my life</h1>
+          <h1 className='App-title'>Community Gallery of Pictures</h1>
         </header>
         <div>
           {/* calls AddPhotoForm to render on DOM */}

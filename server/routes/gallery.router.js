@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const galleryItems = require("../modules/gallery.data");
 const pool = require("../modules/pool");
 
 // DO NOT MODIFY THIS FILE FOR BASE MODE
@@ -11,11 +10,8 @@ router.put("/like/:id", (req, res) => {
   const galleryId = req.params.id;
   let queryText = "";
 
-  for (const galleryItem of galleryItems) {
-    if (galleryItem.id == galleryId) {
-      queryText = `UPDATE photos SET likes=likes+1  WHERE id=$1`;
-    }
-  }
+  queryText = `UPDATE photos SET likes=likes+1 WHERE id=$1`;
+
   pool
     .query(queryText, [galleryId])
     .then(result => {
@@ -70,7 +66,7 @@ router.post("/", (req, res) => {
   const queryText = `INSERT INTO photos (path, description, title, likes) VALUES ($1, $2, $3, $4)`;
   //communicate with database
   pool
-    .query(queryText, [newPhoto.path, "Photo submitted by user! :)", '', 0])
+    .query(queryText, [newPhoto.path, "Photo submitted by user! :)", '', '0'])
     .then(result => {
       //log of photo url sent to database on successful POST
       console.log("Added new photo to database", newPhoto);
